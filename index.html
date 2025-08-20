@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gracy's Portal 💖</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffe6f0;
+      color: #333;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff4da6;
+    }
+    textarea {
+      width: 80%;
+      height: 100px;
+      border-radius: 10px;
+      border: 2px solid #ff99cc;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    button {
+      background: #ff80bf;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: white;
+      margin: 5px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff4da6;
+      transform: scale(1.1);
+    }
+    .emoji-picker span {
+      font-size: 30px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    #messages {
+      margin-top: 20px;
+      padding: 15px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .popup {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffccf2;
+      padding: 20px;
+      border-radius: 20px;
+      font-size: 30px;
+      display: none;
+      animation: pop 0.8s;
+    }
+    @keyframes pop {
+      from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Gracy's Little Diary 💖</h1>
+  
+  <h3>How was your day?</h3>
+  <textarea id="diary" placeholder="Write here..."></textarea><br>
+  
+  <h3>Pick your mood:</h3>
+  <div class="emoji-picker">
+    <span onclick="selectMood('😄')">😄</span>
+    <span onclick="selectMood('🥰')">🥰</span>
+    <span onclick="selectMood('😔')">😔</span>
+    <span onclick="selectMood('😴')">😴</span>
+    <span onclick="selectMood('😡')">😡</span>
+  </div>
+  
+  <br>
+  <button onclick="sendMessage()">Submit</button>
+  <button onclick="showPopup('🤗 Virtual Hug!')">Send Hug 🤗</button>
+  <button onclick="showPopup('😘 Virtual Kiss!')">Send Kiss 😘</button>
+  
+  <div id="messages">
+    <h3>Daily Notes 💌</h3>
+    <div id="entries"></div>
+  </div>
+  
+  <div id="popup" class="popup"></div>
+  
+  <script>
+    let selectedMood = "";
+
+    function selectMood(mood) {
+      selectedMood = mood;
+      alert("Mood selected: " + mood);
+    }
+
+    function sendMessage() {
+      const diary = document.getElementById("diary").value;
+      if (diary.trim() === "" && selectedMood === "") {
+        alert("Please write something or select a mood 💖");
+        return;
+      }
+      const entry = document.createElement("p");
+      entry.innerHTML = `${selectedMood} ${diary}`;
+      document.getElementById("entries").appendChild(entry);
+      document.getElementById("diary").value = "";
+      selectedMood = "";
+    }
+
+    function showPopup(text) {
+      const popup = document.getElementById("popup");
+      popup.innerHTML = text;
+      popup.style.display = "block";
+      setTimeout(() => popup.style.display = "none", 1500);
+    }
+  </script>
+</body>
+</html>
